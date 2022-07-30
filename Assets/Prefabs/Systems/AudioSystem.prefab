@@ -1,0 +1,260 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6841096036755862058
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6841096036755862059}
+  - component: {fileID: 6841096036755862056}
+  - component: {fileID: 6841096036755862054}
+  - component: {fileID: 6841096036755862057}
+  - component: {fileID: 6841096036755862055}
+  - component: {fileID: 6841096036755862053}
+  - component: {fileID: 6841096036755862052}
+  - component: {fileID: 6841096036755862051}
+  - component: {fileID: 6841096036755862050}
+  m_Layer: 0
+  m_Name: AudioSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6841096036755862059
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6841096036755862058}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6841096036755862056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6841096036755862058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 665137b5a0f3443988bc37f7ba5294ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _systemInitializedEvent: {fileID: 0}
+  musicAudioSource: {fileID: 0}
+  fxAudioSource: {fileID: 0}
+  musicAudioMixer: {fileID: -9126647871920027049, guid: 0dc3efa536558400f8d1dae6627d698e,
+    type: 2}
+  fxAudioMixer: {fileID: 896362101159643415, guid: 0dc3efa536558400f8d1dae6627d698e,
+    type: 2}
+  fxEnabled: {fileID: 11400000, guid: 18f531a54c227420b86170133505c637, type: 2}
+  musicEnabled: {fileID: 11400000, guid: 1b372d378835a476498b775c29c69dbc, type: 2}
+  fxVolume: {fileID: 11400000, guid: 67945dd43c8d0414fb03bbefbed1c6ec, type: 2}
+  musicVolume: {fileID: 11400000, guid: afb3bf5e1d89942dcb35f88cc65e37d2, type: 2}
+--- !u!114 &6841096036755862054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6841096036755862058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d83a026e31e4a4c88130daffc37c3ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: 9b3e49ddc12d94d28a1e843cfb64dc58, type: 2}
+  _action:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6841096036755862056}
+        m_TargetAssemblyTypeName: LiteNinja.Systems.Common.AudioSystem, LiteNinja.Systems
+        m_MethodName: PlaySound
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6841096036755862057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6841096036755862058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d83a026e31e4a4c88130daffc37c3ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: 0f8c66d91efca49898b962c81d906ddf, type: 2}
+  _action:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6841096036755862056}
+        m_TargetAssemblyTypeName: LiteNinja.Audio.AudioSystem, LiteNinja.Audio
+        m_MethodName: PlayMusic
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6841096036755862055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6841096036755862058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 890482dcc3314182bb2accebffd5755d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: dc6cf78af7186406b97412c4bb1f1699, type: 2}
+  _action:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6841096036755862056}
+        m_TargetAssemblyTypeName: LiteNinja.Systems.Common.AudioSystem, LiteNinja.Systems
+        m_MethodName: PlaySoundCollection
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6841096036755862053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6841096036755862058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfcc5244b69b54931b82cabd958c378a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: 5f62f2e522a35420fae7a1b4f4ee1cbd, type: 2}
+  _action:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6841096036755862056}
+        m_TargetAssemblyTypeName: LiteNinja.Systems.Common.AudioSystem, LiteNinja.Systems
+        m_MethodName: ToggleSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6841096036755862052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6841096036755862058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfcc5244b69b54931b82cabd958c378a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: c1ff68a2f40b74aeabac36378812f7e3, type: 2}
+  _action:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6841096036755862056}
+        m_TargetAssemblyTypeName: LiteNinja.Systems.Common.AudioSystem, LiteNinja.Systems
+        m_MethodName: ToggleMusic
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6841096036755862051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6841096036755862058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d00199c948dd431d98734935832850d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: 457fc9180c8604e2dbca37631399516d, type: 2}
+  _action:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6841096036755862056}
+        m_TargetAssemblyTypeName: LiteNinja.Audio.AudioSystem, LiteNinja.Audio
+        m_MethodName: SetFXVolume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6841096036755862050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6841096036755862058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d00199c948dd431d98734935832850d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: c5bf90c529fcc4d458efd23a70b3c5b6, type: 2}
+  _action:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6841096036755862056}
+        m_TargetAssemblyTypeName: LiteNinja.Audio.AudioSystem, LiteNinja.Audio
+        m_MethodName: SetMusicVolume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

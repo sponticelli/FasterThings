@@ -1,0 +1,16 @@
+{
+    "name": "LiteNinja.SOVariables",
+    "rootNamespace": "",
+    "references": [
+        "GUID:4a2568bc2748c4f17b613a2048233910"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
