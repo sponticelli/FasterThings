@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace FasterThings.Vehicles
+namespace FasterThings.Vehicles.Test1
 {
     public class PhysicsObject : MonoBehaviour
     {
