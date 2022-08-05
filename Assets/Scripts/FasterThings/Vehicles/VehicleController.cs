@@ -33,9 +33,7 @@ namespace FasterThings.Vehicles
 
         private void Update()
         {
-
-            
-            var vehicleVelocity = Vector3.ClampMagnitude( transform.position  - _lasPosition, 1f);
+            var vehicleVelocity = Vector3.ClampMagnitude(transform.position - _lasPosition, 1f);
 
             // Get input
             _inputForward = Input.GetAxisRaw("Vertical");
@@ -44,11 +42,8 @@ namespace FasterThings.Vehicles
             // Add speed to input
             _inputForward *= _speed;
             _inputTurn *= _turnSpeed * vehicleVelocity.magnitude;
-            
-            
 
-            
-            
+
             _lasPosition = transform.position;
         }
 
@@ -56,11 +51,11 @@ namespace FasterThings.Vehicles
         {
             var movDir = new Vector3(_inputTurn, 0, _lagForward);
             _driverRB.AddForce(transform.forward * _lerpForward, ForceMode.Acceleration);
-            
+
             //Smooth values
             _lerpForward = Mathf.Lerp(_lerpForward, _inputForward, Time.fixedDeltaTime * _lagForward);
             _lerpTurn = Mathf.Lerp(_lerpTurn, _inputTurn, Time.fixedDeltaTime * _lagTurn);
-            
+
             // Move the vehicle
             transform.position = Vector3.Lerp(transform.position, _driverRB.position, Time.fixedDeltaTime * _lagSpeed);
             // Rotate vehicle
