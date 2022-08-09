@@ -5,9 +5,6 @@ namespace FasterThings.Vehicles
 {
     public abstract class AVehicleController : MonoBehaviour
     {
-        [Header("Input")] 
-        [SerializeField] protected BaseVehicleInput _input;
-
         [Header("Physics")] 
         [SerializeField] protected Rigidbody _rigidbody;
         [SerializeField] protected Collider _collider;
