@@ -2,130 +2,119 @@ using UnityEngine;
 
 namespace FasterThings.Vehicles
 {
-
     public class HovercraftController : AVehicleController<HovercraftConfig>
     {
-	    protected RaycastHit _groundRaycastHit;
-	    
-		/// <summary>
-		/// Fixed Update : physics controls
-		/// </summary>
-		public virtual void FixedUpdate()
-		{
-			// Input management
-			if (ThrottleAmount > 0)
-			{
-				Accelerate();
-			}
-				
-			Rotation();
+        protected RaycastHit _groundRaycastHit;
+        protected Vector3 _groundNormal = Vector3.up;
 
-			// Physics
-			Hover();
+        /// <summary>
+        /// Fixed Update : physics controls
+        /// </summary>
+        public virtual void FixedUpdate()
+        {
+            // Input management
+            if (ThrottleAmount > 0)
+            {
+                Accelerate();
+            }
 
-			OrientationToGround();
-		}
+            Rotation();
+            // Physics
+            Hover();
+            OrientationToGround();
+        }
 
-		/// <summary>
-		/// Manages the acceleration of the vehicle
-		/// </summary>
-		protected virtual void Accelerate() 
-		{
-			if (Speed < _config.maxSpeed)
-			{
-				_rigidbody.AddForce(ThrottleAmount * transform.forward * _config.enginePower * Time.fixedDeltaTime);
-			}
-		}
+        /// <summary>
+        /// Manages the acceleration of the vehicle
+        /// </summary>
+        protected virtual void Accelerate()
+        {
+            if (Speed < _config.maxSpeed)
+            {
+                _rigidbody.AddForce(transform.forward * (ThrottleAmount * _config.enginePower * Time.fixedDeltaTime));
+            }
+        }
 
-		/// <summary>
-		/// Rotation of the vehicle using steering input
-		/// </summary>
-		protected virtual void Rotation()
-		{
-			if (SteeringAmount != 0)
-			{
-				transform.Rotate(SteeringAmount * Vector3.up * _config.SteeringSpeed * Time.fixedDeltaTime);
+        /// <summary>
+        /// Rotation of the vehicle using steering input
+        /// </summary>
+        protected virtual void Rotation()
+        {
+            if (SteeringAmount != 0)
+            {
+                transform.Rotate(Vector3.up * (SteeringAmount * _config.SteeringSpeed * Time.fixedDeltaTime));
 
-				var horizontalVector = transform.right;
+                var horizontalVector = transform.right;
 
-				// When rotating, we also apply an opposite tangent force to counter slipping 
-				_rigidbody.AddForce(horizontalVector * SteeringAmount * Time.fixedDeltaTime * _config.lateralSteeringForce * Speed);
-			}
-		}
+                // When rotating, we also apply an opposite tangent force to counter slipping 
+                _rigidbody.AddForce(horizontalVector *
+                                    (SteeringAmount * Time.fixedDeltaTime * _config.lateralSteeringForce * Speed));
+            }
+        }
 
 
-		/// <summary>
-		/// Management of the hover and gravity of the vehicle
-		/// </summary>
-		protected virtual void Hover()
-		{
-			// we enforce isgrounded to false before calculations
-			IsGrounded = false;
+        /// <summary>
+        /// Management of the hover and gravity of the vehicle
+        /// </summary>
+        protected virtual void Hover()
+        {
+            // we enforce isgrounded to false before calculations
+            IsGrounded = false;
 
-			// Raycast origin is positionned on the center front of the car
-			var rayOrigin = transform.position + transform.forward * _collider.bounds.size.z / 2;
+            // Raycast origin is positioned on the center front of the vehicle
+            var rayOrigin = transform.position + transform.forward * _collider.bounds.size.z / 2;
 
-			// Raycast to the ground layer
-			if (Physics.Raycast(
-				rayOrigin, 
-				-Vector3.up, 
-				out _groundRaycastHit, 
-				Mathf.Infinity,
-				1 << LayerMask.NameToLayer("Ground")))
-			{
-				// Raycast hit the ground
+            // Raycast to the ground layer
+            if (Physics.Raycast(
+                    rayOrigin,
+                    -_groundNormal,
+                    out _groundRaycastHit,
+                    Mathf.Infinity,
+                    1 << LayerMask.NameToLayer("Ground")))
+            {
+                _groundNormal = _groundRaycastHit.normal;
 
-				// If distance between vehicle and ground is higher than target height, we apply a force from up to
-				// bottom (gravity) to push the vehicle down.
-				if (_groundRaycastHit.distance > _config.hoverHeight)
-				{
-					_rigidbody.position = new Vector3(
-						_rigidbody.position.x,
-						_groundRaycastHit.point.y + _config.hoverHeight,
-						_rigidbody.position.z);
-					
-				} 
-				else
-				{
-					// if the vehicle is low enough, it is considered grounded
-					IsGrounded = true;
-				
-					// we determine the distance between current vehicle height and wanted height
-					var distanceVehicleToHoverPosition = _config.hoverHeight - _groundRaycastHit.distance;
+                //distance along the ground normal
+                var distance = Mathf.Abs(Vector3.Dot(rayOrigin - _groundRaycastHit.point, _groundNormal));
+                var distanceVehicleToHoverPosition = _config.hoverHeight - distance;
+                var force = distanceVehicleToHoverPosition * _config.hoverForce;
 
-					var force = distanceVehicleToHoverPosition * _config.hoverForce;
+                IsGrounded = (distance <= _config.hoverHeight);
 
-					// we add the hoverforce to the rigidbody
-					_rigidbody.AddForce(Vector3.up * force * Time.fixedDeltaTime, ForceMode.Acceleration);
-				}
-			}
-		}
+                //Apply force to hover the vehicle along the ground normal
+                _rigidbody.AddForce(_groundNormal * (force * Time.fixedDeltaTime), ForceMode.Acceleration);
+            }
+        }
 
-		/// <summary>
-		/// Manages orientation of the vehicle depending ground surface normal
-		/// </summary>
-		protected virtual void OrientationToGround()
-		{
-			var rotationTarget = Quaternion.FromToRotation(transform.up, _groundRaycastHit.normal) * transform.rotation;
+        /// <summary>
+        /// Manages orientation of the vehicle depending ground surface normal
+        /// </summary>
+        protected virtual void OrientationToGround()
+        {
+            var rotationTarget = Quaternion.FromToRotation(transform.up, _groundRaycastHit.normal) * transform.rotation;
 
-			transform.rotation = Quaternion.Slerp(transform.rotation, rotationTarget, Time.fixedDeltaTime * _config.orientationGroundSpeed);
-		}
-	
-		/// <summary>
-		/// Draws controller gizmos
-		/// </summary>
-		public virtual void OnDrawGizmos()
-		{
-			var collider = (BoxCollider)_collider;
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotationTarget,
+                Time.fixedDeltaTime * _config.orientationGroundSpeed);
+        }
 
-			var position = transform.position + transform.forward * collider.size.z / 2;
+        /// <summary>
+        /// Draws controller gizmos
+        /// </summary>
+        public virtual void OnDrawGizmos()
+        {
+            var collider = (BoxCollider)_collider;
 
-			Gizmos.color = Color.blue;
-			Gizmos.DrawSphere(position, 0.1f);
+            var position = transform.position + transform.forward * collider.size.z / 2;
 
-			Gizmos.color = IsGrounded ? Color.green : Color.red;
+            Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(position, 0.1f);
 
-			Gizmos.DrawLine(position, _groundRaycastHit.point);
-		}
+            Gizmos.color = IsGrounded ? Color.green : Color.red;
+
+            Gizmos.DrawLine(position, _groundRaycastHit.point);
+
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawRay(position, -_groundNormal * _config.hoverHeight);
+        }
     }
 }
